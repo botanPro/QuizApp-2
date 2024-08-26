@@ -31,6 +31,38 @@ extension UITextField{
     }
 }
 
+extension String {
+    private static let formatter = NumberFormatter()
+
+    func clippingCharacters(in characterSet: CharacterSet) -> String {
+        components(separatedBy: characterSet).joined()
+    }
+
+    func convertedDigitsToLocale(_ locale: Locale = .current) -> String {
+        let digits = Set(clippingCharacters(in: CharacterSet.decimalDigits.inverted))
+        guard !digits.isEmpty else { return self }
+
+        Self.formatter.locale = locale
+        let maps: [(original: String, converted: String)] = digits.map {
+            let original = String($0)
+            guard let digit = Self.formatter.number(from: String($0)) else {
+                assertionFailure("Can not convert to number from: \(original)")
+                return (original, original)
+            }
+            guard let localized = Self.formatter.string(from: digit) else {
+                assertionFailure("Can not convert to string from: \(digit)")
+                return (original, original)
+            }
+            return (original, localized)
+        }
+
+        var converted = self
+        for map in maps { converted = converted.replacingOccurrences(of: map.original, with: map.converted) }
+        return converted
+    }
+}
+
+
 
 
 
@@ -47,6 +79,8 @@ extension UIImageView {
         self.layer.cornerRadius = cornerRadious
     }
 }
+
+
 extension UIView {
     func viewshadowWithCorner(containerView : UIView, cornerRadious : CGFloat){
         let viewShadow = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
@@ -59,6 +93,7 @@ extension UIView {
         containerView.addSubview(viewShadow)
     }
 }
+
 
 
 @IBDesignable class GradientView: UIView {
@@ -139,3 +174,47 @@ extension UIViewController {
     }
 }
 
+
+
+class WorkItem {
+
+    private var pendingRequestWorkItem: DispatchWorkItem?
+    
+    func perform(after: TimeInterval, _ block: @escaping () -> Void) {
+        // Cancel the currently pending item
+        pendingRequestWorkItem?.cancel()
+        
+        // Wrap our request in a work item
+        let requestWorkItem = DispatchWorkItem(block: block)
+        
+        pendingRequestWorkItem = requestWorkItem
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + after, execute: requestWorkItem)
+    }
+}
+
+extension UITextField {
+    
+    func addDoneButton(title: String, target: Any, selector: Selector) {
+        
+        let toolBar = UIToolbar(frame: CGRect(x: 0.0,
+                                              y: 0.0,
+                                              width: UIScreen.main.bounds.size.width,
+                                              height: 44.0))//1
+        let flexible = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)//2
+        let barButton = UIBarButtonItem(title: title, style: .plain, target: target, action: selector)//3
+        toolBar.setItems([flexible, barButton], animated: false)//4
+        self.inputAccessoryView = toolBar//5
+    }
+}
+
+
+extension String {
+   func replace(string:String, replacement:String) -> String {
+       return self.replacingOccurrences(of: string, with: replacement, options: NSString.CompareOptions.literal, range: nil)
+   }
+
+   func removeWhitespace() -> String {
+       return self.replace(string: " ", replacement: "")
+   }
+ }

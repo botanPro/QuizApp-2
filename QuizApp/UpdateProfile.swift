@@ -7,23 +7,38 @@
 
 import UIKit
 
-class UpdateProfile: UIViewController {
+class UpdateProfile: UIViewController , UITextViewDelegate{
+
+    @IBOutlet weak var Bio: UITextView!
+    
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == UIColor.lightGray {
+            textView.text = nil
+            textView.textColor = UIColor.black
+        }
+    }
+    
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = "بایو"
+            textView.textColor = UIColor.lightGray
+        }
+    }
+    
+    @IBAction func Dismiss(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        Bio.delegate = self
+        Bio.text = "بایو"
+        Bio.textColor = UIColor.lightGray
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+ 
 
 }

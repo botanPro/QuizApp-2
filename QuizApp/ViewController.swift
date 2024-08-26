@@ -8,12 +8,12 @@
 import UIKit
 
 class ViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        if UserDefaults.standard.string(forKey: "login") == "true"{
+            self.performSegue(withIdentifier: "ChooseWayToLoginVC", sender: nil)
+        }else{
+            self.performSegue(withIdentifier: "HomeVc", sender: nil)
+        }
     }
-
-
 }
-
