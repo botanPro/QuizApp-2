@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Message BoxVC-->
+        <scene sceneID="aMR-dz-vZ3">
+            <objects>
+                <viewController storyboardIdentifier="MessageBox" id="fao-1l-gIH" customClass="MessageBoxVC" customModule="rollTest" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Zqc-9m-TSv">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6MW-mg-f4X">
+                                <rect key="frame" x="59.5" y="378" width="295" height="140"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uLS-sK-J8a" customClass="Languagebutton" customModule="rollTest" customModuleProvider="target">
+                                        <rect key="frame" x="5" y="88" width="285" height="47"/>
+                                        <color key="backgroundColor" name="GeneralColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="47" id="pzO-DN-m1j"/>
+                                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="285" id="yET-DI-mBj"/>
+                                        </constraints>
+                                        <state key="normal">
+                                            <attributedString key="attributedTitle">
+                                                <fragment content="Ok">
+                                                    <attributes>
+                                                        <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <font key="NSFont" metaFont="system" size="16"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="15"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="EnglishText" value="Ok"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="KurdishText" value="بەلێ"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="ArabicText" value="نعم"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="Done:" destination="fao-1l-gIH" eventType="touchUpInside" id="X1y-ne-loU"/>
+                                        </connections>
+                                    </button>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="oo3-xL-sC5">
+                                        <rect key="frame" x="33" y="8" width="230" height="70"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CkH-Tb-Nle">
+                                                <rect key="frame" x="0.0" y="0.0" width="230" height="70"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="230" id="yOR-wa-AwV"/>
+                                                </constraints>
+                                                <attributedString key="attributedText">
+                                                    <fragment content="labe">
+                                                        <attributes>
+                                                            <color key="NSColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <font key="NSFont" metaFont="system" size="15"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                </attributedString>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.92690579182943922" green="0.93351475599045075" blue="0.9533416484734849" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="uLS-sK-J8a" secondAttribute="bottom" constant="5" id="EW5-uM-RiL"/>
+                                    <constraint firstItem="uLS-sK-J8a" firstAttribute="leading" secondItem="6MW-mg-f4X" secondAttribute="leading" constant="5" id="LWR-Ta-sCd"/>
+                                    <constraint firstItem="uLS-sK-J8a" firstAttribute="top" secondItem="oo3-xL-sC5" secondAttribute="bottom" constant="10" id="RUv-gZ-TKo"/>
+                                    <constraint firstAttribute="height" constant="140" id="VL5-IF-b9g"/>
+                                    <constraint firstItem="oo3-xL-sC5" firstAttribute="leading" secondItem="6MW-mg-f4X" secondAttribute="leading" constant="33" id="WDE-GX-Guc"/>
+                                    <constraint firstItem="oo3-xL-sC5" firstAttribute="top" secondItem="6MW-mg-f4X" secondAttribute="top" constant="8" id="XuG-Zp-xbu"/>
+                                    <constraint firstAttribute="trailing" secondItem="uLS-sK-J8a" secondAttribute="trailing" constant="5" id="bJw-99-JsA"/>
+                                    <constraint firstAttribute="width" constant="295" id="bKX-KI-Bhl"/>
+                                    <constraint firstAttribute="trailing" secondItem="oo3-xL-sC5" secondAttribute="trailing" constant="32" id="rqB-RY-UzY"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="3zf-8X-WoA"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="6MW-mg-f4X" firstAttribute="centerX" secondItem="Zqc-9m-TSv" secondAttribute="centerX" id="R5O-lm-ngV"/>
+                            <constraint firstItem="6MW-mg-f4X" firstAttribute="centerY" secondItem="Zqc-9m-TSv" secondAttribute="centerY" id="y1y-LM-cIS"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="Message" destination="CkH-Tb-Nle" id="nst-8L-K8T"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HcV-ac-D2U" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="124.6376811594203" y="101.78571428571428"/>
+        </scene>
+    </scenes>
+    <resources>
+        <namedColor name="GeneralColor">
+            <color red="0.95686274509803915" green="0.4823529411764706" blue="0.12549019607843137" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>
