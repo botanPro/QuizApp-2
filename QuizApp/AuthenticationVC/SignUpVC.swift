@@ -295,7 +295,7 @@ class SignUpVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, Passw
                 TagsObjectApi.GetTags(text: string) { TagsObject in
                     self.Tags = TagsObject
                     for Tag in TagsObject {
-                        self.dropDown.dataSource.append(Tag.tag)
+                        self.dropDown.dataSource.append(Tag.name)
                     }
                     self.dropDown.show()
                 }
@@ -334,7 +334,7 @@ class SignUpVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, Passw
     var phone = ""
     @IBAction func CreateAccount(_ sender: Any) {
         if CheckInternet.Connection(){
-            if self.Phone.text?.trimmingCharacters(in: .whitespaces) != "" && self.ProfileName.text?.trimmingCharacters(in: .whitespaces) != "" && self.Name.text?.trimmingCharacters(in: .whitespaces) != "" && self.Password.text?.trimmingCharacters(in: .whitespaces) != "" && self.ConfirmPassword.text?.trimmingCharacters(in: .whitespaces) != "" && self.OTP.text?.trimmingCharacters(in: .whitespaces) != ""{
+            if self.Phone.text?.trimmingCharacters(in: .whitespaces) != "" && self.ProfileName.text?.trimmingCharacters(in: .whitespaces) != "" && self.Name.text?.trimmingCharacters(in: .whitespaces) != "" && self.Password.text?.trimmingCharacters(in: .whitespaces) != "" && self.ConfirmPassword.text?.trimmingCharacters(in: .whitespaces) != "" && self.OTP.text?.trimmingCharacters(in: .whitespaces) != "" && self.forCollection.count != 0 && self.Email.text?.trimmingCharacters(in: .whitespaces) != "" && self.Bio.text?.trimmingCharacters(in: .whitespaces) != ""{
                 self.view.endEditing(true)
                 loadingView.show(on: view)
                 if self.Password.text! != self.ConfirmPassword.text!{
@@ -380,13 +380,13 @@ class SignUpVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, Passw
                 var TagsId : [Int] = []
                 for Tag in Tags {
                     for (j, _) in forCollection.enumerated() {
-                        if self.forCollection[j] == Tag.tag{
+                        if self.forCollection[j] == Tag.name{
                             TagsId.append(Tag.id)
                         }
                     }
                 }
                 
-                LoginAPi.CreateAccount(image: self.Image.image ?? UIImage(), profile_name: self.ProfileName.text!, full_name: self.Name.text!, bio: self.Bio.text, tags: TagsId, password: self.Password.text!, phone: self.phone, otp: self.OTP.text!, email: self.Email.text!) { status in
+                LoginAPi.CreateAccount(image: self.Image.image ?? UIImage(), profile_name: self.ProfileName.text!, full_name: self.Name.text!, bio: self.Bio.text!, tags: TagsId, password: self.Password.text!, phone: self.phone, otp: self.OTP.text!, email: self.Email.text!) { status in
                     RSLoadingView.hide(from: self.view)
                     
                     if status == "success"{
@@ -410,7 +410,7 @@ class SignUpVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, Passw
                 }
                 
                 if self.forCollection.count == 0{
-                    MessageBox.ShowMessage(Text: "هیڤیە تا  ٥ تاگسان هەلبژێرە")
+                    MessageBox.ShowMessage(Text: "هیڤیە تا ٥ تاگسان هەلبژێرە")
                 }
                 
                 if self.Phone.text! == ""{
@@ -427,6 +427,14 @@ class SignUpVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, Passw
                 
                 if self.ConfirmPassword.text! == ""{
                     MessageBox.ShowMessage(Text: "هیڤیە دوپاتکرنا وشا نهێنی بنڤیسە")
+                }
+                
+                if self.Email.text! == ""{
+                    MessageBox.ShowMessage(Text: "هیڤیە ئیمایلی بنڤیسە")
+                }
+                
+                if self.Bio.text! == ""{
+                    MessageBox.ShowMessage(Text: "هیڤیە بایۆ پربکە")
                 }
             }
         }else{

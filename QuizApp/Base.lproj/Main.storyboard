@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ceT-1r-pzp">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -248,7 +248,7 @@
                                                                     <constraint firstAttribute="height" constant="45" id="DZY-Os-8Aq"/>
                                                                 </constraints>
                                                                 <color key="textColor" red="0.24404796009999999" green="0.2464642766" blue="0.2464642766" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="color" keyPath="placeHolderColor">
@@ -293,7 +293,7 @@
                                                                                     <constraint firstAttribute="height" constant="45" id="LGD-wF-MQF"/>
                                                                                 </constraints>
                                                                                 <color key="textColor" red="0.24404796009999999" green="0.2464642766" blue="0.2464642766" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                                                                 <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                                                                                 <userDefinedRuntimeAttributes>
                                                                                     <userDefinedRuntimeAttribute type="color" keyPath="placeHolderColor">
@@ -479,7 +479,7 @@
                                                                     <constraint firstAttribute="height" constant="40" id="viF-EP-SIU"/>
                                                                 </constraints>
                                                                 <color key="textColor" red="0.24404796009999999" green="0.2464642766" blue="0.2464642766" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="color" keyPath="placeHolderColor">
@@ -505,7 +505,7 @@
                                                                     <constraint firstAttribute="height" constant="40" id="WyH-e1-zkb"/>
                                                                 </constraints>
                                                                 <color key="textColor" red="0.24404796009999999" green="0.2464642766" blue="0.2464642766" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="color" keyPath="placeHolderColor">
@@ -532,7 +532,7 @@
                                                                     <constraint firstAttribute="height" constant="80" id="wcM-Fp-mDa"/>
                                                                 </constraints>
                                                                 <color key="textColor" red="0.24404796009999999" green="0.2464642766" blue="0.2464642766" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                             </textView>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qae-hH-IOH">
@@ -553,7 +553,7 @@
                                                                     <constraint firstAttribute="height" constant="40" id="Z3k-cL-HG3"/>
                                                                 </constraints>
                                                                 <color key="textColor" red="0.24404796009999999" green="0.2464642766" blue="0.2464642766" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="color" keyPath="placeHolderColor">
@@ -579,7 +579,7 @@
                                                                     <constraint firstAttribute="height" constant="40" id="E6w-Vm-i1e"/>
                                                                 </constraints>
                                                                 <color key="textColor" red="0.24404796009999999" green="0.2464642766" blue="0.2464642766" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="color" keyPath="placeHolderColor">
@@ -642,7 +642,7 @@
                                                                                     <constraint firstAttribute="height" constant="45" id="TlG-A9-C6S"/>
                                                                                 </constraints>
                                                                                 <color key="textColor" red="0.24404796009999999" green="0.2464642766" blue="0.2464642766" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                                                                 <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                                                                                 <userDefinedRuntimeAttributes>
                                                                                     <userDefinedRuntimeAttribute type="color" keyPath="placeHolderColor">
@@ -701,7 +701,7 @@
                                                                                     <constraint firstAttribute="height" constant="45" id="QeO-ff-ndF"/>
                                                                                 </constraints>
                                                                                 <color key="textColor" red="0.24404796009999999" green="0.2464642766" blue="0.2464642766" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                                                                 <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                                                                                 <userDefinedRuntimeAttributes>
                                                                                     <userDefinedRuntimeAttribute type="color" keyPath="placeHolderColor">
@@ -741,7 +741,7 @@
                                                                     <constraint firstAttribute="height" constant="40" id="W7L-s8-1kz"/>
                                                                 </constraints>
                                                                 <color key="textColor" red="0.24404796009999999" green="0.2464642766" blue="0.2464642766" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="color" keyPath="placeHolderColor">
@@ -784,7 +784,7 @@
                                                                             <constraint firstAttribute="height" constant="45" id="Cb9-8D-W5y"/>
                                                                         </constraints>
                                                                         <color key="textColor" red="0.24404796009999999" green="0.2464642766" blue="0.2464642766" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                                                         <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                                                                         <userDefinedRuntimeAttributes>
                                                                             <userDefinedRuntimeAttribute type="color" keyPath="placeHolderColor">
@@ -945,7 +945,7 @@
                                                                     <constraint firstAttribute="height" constant="45" id="JIA-xp-MyR"/>
                                                                 </constraints>
                                                                 <color key="textColor" red="0.24404796009999999" green="0.2464642766" blue="0.2464642766" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="color" keyPath="placeHolderColor">
@@ -988,7 +988,7 @@
                                                                             <constraint firstAttribute="height" constant="45" id="yc4-ck-FvJ"/>
                                                                         </constraints>
                                                                         <color key="textColor" red="0.24404796009999999" green="0.2464642766" blue="0.2464642766" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                                                         <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                                                                         <userDefinedRuntimeAttributes>
                                                                             <userDefinedRuntimeAttribute type="color" keyPath="placeHolderColor">
@@ -1161,7 +1161,7 @@
                                                                                             <constraint firstAttribute="height" constant="45" id="D5g-e7-LxP"/>
                                                                                         </constraints>
                                                                                         <color key="textColor" red="0.24404796009999999" green="0.2464642766" blue="0.2464642766" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                                                                         <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                                                                                         <userDefinedRuntimeAttributes>
                                                                                             <userDefinedRuntimeAttribute type="color" keyPath="placeHolderColor">
@@ -1220,7 +1220,7 @@
                                                                                             <constraint firstAttribute="height" constant="45" id="yVX-UA-QS0"/>
                                                                                         </constraints>
                                                                                         <color key="textColor" red="0.24404796009999999" green="0.2464642766" blue="0.2464642766" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                                                                         <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                                                                                         <userDefinedRuntimeAttributes>
                                                                                             <userDefinedRuntimeAttribute type="color" keyPath="placeHolderColor">
@@ -1360,10 +1360,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="m0M-kg-a58">
-                                        <rect key="frame" x="25" y="40" width="364" height="60"/>
+                                        <rect key="frame" x="25" y="40" width="364" height="74"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f3G-Ch-xne">
-                                                <rect key="frame" x="0.0" y="16.666666666666664" width="27" height="27"/>
+                                                <rect key="frame" x="0.0" y="23.666666666666664" width="27" height="27"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="27" id="9SA-Bu-qgB"/>
                                                     <constraint firstAttribute="height" constant="27" id="RgB-uF-uve"/>
@@ -1378,12 +1378,12 @@
                                                 </connections>
                                             </button>
                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="JtS-km-ftB">
-                                                <rect key="frame" x="37" y="0.0" width="327" height="60"/>
+                                                <rect key="frame" x="37" y="0.0" width="327" height="74"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="aoq-k8-g88">
-                                                        <rect key="frame" x="0.0" y="12" width="254" height="36"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="254" height="74"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello Botan Pro" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tcr-KS-QKT">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tcr-KS-QKT">
                                                                 <rect key="frame" x="0.0" y="0.0" width="254" height="22"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="22" id="dyz-UD-kRk"/>
@@ -1392,8 +1392,8 @@
                                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+964 750 894 7942" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dRR-iX-OAX">
-                                                                <rect key="frame" x="0.0" y="24" width="254" height="12"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dRR-iX-OAX">
+                                                                <rect key="frame" x="0.0" y="24" width="254" height="50"/>
                                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="10"/>
                                                                 <color key="textColor" red="0.23927596209999999" green="0.28680694099999998" blue="0.31965741520000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                 <nil key="highlightedColor"/>
@@ -1401,9 +1401,9 @@
                                                         </subviews>
                                                     </stackView>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6wC-sa-EJT">
-                                                        <rect key="frame" x="267" y="0.0" width="60" height="60"/>
+                                                        <rect key="frame" x="267" y="7" width="60" height="60"/>
                                                         <subviews>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="close-up-portrait-of-smiling-handsome-young-caucasian-man-face-looking-at-camera-on-isolated-light-gray-studio-background-photo" translatesAutoresizingMaskIntoConstraints="NO" id="ufz-Bd-fO5">
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="account-avatar-profile-user-svgrepo-com" translatesAutoresizingMaskIntoConstraints="NO" id="ufz-Bd-fO5">
                                                                 <rect key="frame" x="2" y="2" width="56" height="56"/>
                                                             </imageView>
                                                         </subviews>
@@ -1426,7 +1426,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="b8Y-e4-4Pf">
-                                        <rect key="frame" x="25" y="130" width="364" height="187"/>
+                                        <rect key="frame" x="25" y="144" width="364" height="187"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Vty-df-Vit">
                                                 <rect key="frame" x="0.0" y="0.0" width="364" height="22"/>
@@ -1678,7 +1678,7 @@
                                         </subviews>
                                     </stackView>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="jDm-0r-Oih">
-                                        <rect key="frame" x="0.0" y="364" width="414" height="26"/>
+                                        <rect key="frame" x="0.0" y="378" width="414" height="26"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="26" id="dLf-iH-du4"/>
@@ -1696,7 +1696,7 @@
                                         </connections>
                                     </collectionView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="تاگس" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="myA-0v-AhI">
-                                        <rect key="frame" x="25" y="337" width="364" height="22"/>
+                                        <rect key="frame" x="25" y="351" width="364" height="22"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="22" id="V2r-eG-bvw"/>
                                         </constraints>
@@ -1705,7 +1705,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="948-aT-Gvp">
-                                        <rect key="frame" x="25" y="410" width="364" height="47"/>
+                                        <rect key="frame" x="25" y="424" width="364" height="47"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="sBA-s5-FxD">
                                                 <rect key="frame" x="15" y="3.6666666666666856" width="334" height="40"/>
@@ -1748,7 +1748,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="iCB-nN-o68">
-                                        <rect key="frame" x="25" y="477" width="364" height="291"/>
+                                        <rect key="frame" x="25" y="491" width="364" height="291"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="پسیارێن ئەڤرو" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MlX-tB-9bd">
                                                 <rect key="frame" x="0.0" y="0.0" width="364" height="22"/>
@@ -1901,7 +1901,7 @@
                                         </subviews>
                                     </stackView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sch-e5-gho">
-                                        <rect key="frame" x="92" y="784" width="230" height="60"/>
+                                        <rect key="frame" x="92" y="798" width="230" height="60"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="web-button-gradient-button-png" translatesAutoresizingMaskIntoConstraints="NO" id="gO8-Ip-jxe">
                                                 <rect key="frame" x="0.0" y="0.0" width="230" height="60"/>
@@ -1997,6 +1997,8 @@
                         <outlet property="JoinButtonView" destination="Sch-e5-gho" id="Q0v-cR-QZF"/>
                         <outlet property="MyPic" destination="ufz-Bd-fO5" id="XQ8-ED-ywf"/>
                         <outlet property="MyPicView" destination="6wC-sa-EJT" id="P85-ho-X83"/>
+                        <outlet property="Name" destination="Tcr-KS-QKT" id="BpS-oj-pxB"/>
+                        <outlet property="Phone" destination="dRR-iX-OAX" id="1VU-bQ-HoA"/>
                         <outlet property="SearchView" destination="948-aT-Gvp" id="WXE-sK-SO9"/>
                         <outlet property="SecondPic" destination="fhh-zM-3RF" id="1VX-aB-oKg"/>
                         <outlet property="SecondPicView" destination="a3E-5u-0jK" id="ghD-QG-eSI"/>
@@ -2257,6 +2259,9 @@
                                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                 <state key="normal" title="گهورینا وێنەی"/>
+                                                                <connections>
+                                                                    <action selector="EditImage:" destination="cyh-Xt-9iu" eventType="touchUpInside" id="IyD-ms-vaZ"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                     </stackView>
@@ -2269,7 +2274,7 @@
                                                                     <constraint firstAttribute="height" constant="40" id="8Sq-bG-MeF"/>
                                                                 </constraints>
                                                                 <color key="textColor" red="0.24404796009999999" green="0.2464642766" blue="0.2464642766" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="color" keyPath="placeHolderColor">
@@ -2295,7 +2300,7 @@
                                                                     <constraint firstAttribute="height" constant="40" id="8zs-TR-G20"/>
                                                                 </constraints>
                                                                 <color key="textColor" red="0.24404796009999999" green="0.2464642766" blue="0.2464642766" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="color" keyPath="placeHolderColor">
@@ -2322,7 +2327,7 @@
                                                                     <constraint firstAttribute="height" constant="80" id="QQa-AG-7MH"/>
                                                                 </constraints>
                                                                 <color key="textColor" red="0.24404796009999999" green="0.2464642766" blue="0.2464642766" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                             </textView>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rdp-MH-RK3">
@@ -2343,7 +2348,7 @@
                                                                     <constraint firstAttribute="height" constant="40" id="8ud-m7-znz"/>
                                                                 </constraints>
                                                                 <color key="textColor" red="0.24404796009999999" green="0.2464642766" blue="0.2464642766" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="color" keyPath="placeHolderColor">
@@ -2369,7 +2374,7 @@
                                                                     <constraint firstAttribute="height" constant="40" id="FVb-ht-vPP"/>
                                                                 </constraints>
                                                                 <color key="textColor" red="0.24404796009999999" green="0.2464642766" blue="0.2464642766" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="color" keyPath="placeHolderColor">
@@ -2377,6 +2382,24 @@
                                                                     </userDefinedRuntimeAttribute>
                                                                 </userDefinedRuntimeAttributes>
                                                             </textField>
+                                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="SYn-NU-uCg">
+                                                                <rect key="frame" x="0.0" y="40" width="294" height="0.0"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" id="Je4-sP-3pu"/>
+                                                                </constraints>
+                                                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="5GB-s4-QTL">
+                                                                    <size key="itemSize" width="128" height="25"/>
+                                                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                                </collectionViewFlowLayout>
+                                                                <cells/>
+                                                                <connections>
+                                                                    <outlet property="dataSource" destination="cyh-Xt-9iu" id="BEW-Ik-FuN"/>
+                                                                    <outlet property="delegate" destination="cyh-Xt-9iu" id="mda-59-SUq"/>
+                                                                </connections>
+                                                            </collectionView>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wb6-Vl-gXI">
                                                                 <rect key="frame" x="0.0" y="40" width="294" height="1"/>
                                                                 <color key="backgroundColor" red="0.90935107920000002" green="0.90935107920000002" blue="0.90935107920000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -2402,6 +2425,9 @@
                                                                 <integer key="value" value="10"/>
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="Update:" destination="cyh-Xt-9iu" eventType="touchUpInside" id="H0J-ny-NqB"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zqW-1q-OHT">
                                                         <rect key="frame" x="0.0" y="478" width="294" height="28"/>
@@ -2457,6 +2483,14 @@
                     </view>
                     <connections>
                         <outlet property="Bio" destination="jWq-UC-KhA" id="qw3-tY-L2I"/>
+                        <outlet property="Email" destination="rlJ-ZJ-H3E" id="NLk-ji-3l0"/>
+                        <outlet property="Image" destination="bNV-rB-Yxi" id="HyR-2M-iXV"/>
+                        <outlet property="Name" destination="zVy-RQ-W7C" id="wxs-46-Xra"/>
+                        <outlet property="ProfileName" destination="K2x-aZ-qcg" id="0A3-gd-Jk0"/>
+                        <outlet property="StackBottom" destination="oAh-fn-f8N" id="17q-PR-VJA"/>
+                        <outlet property="TagsCollectionView" destination="SYn-NU-uCg" id="qfz-Jq-q9Z"/>
+                        <outlet property="TagsHeight" destination="Je4-sP-3pu" id="MNk-be-5WW"/>
+                        <outlet property="TagsTextField" destination="3XE-Mg-aED" id="Yxb-2q-eT6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xmt-Qd-mwz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

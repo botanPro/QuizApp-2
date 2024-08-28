@@ -49,10 +49,154 @@ class QuestionObjects{
 }
 
 
-
+class ProfileData{
+    var email = ""
+    var image = ""
+    var id = 0
+    var name = ""
+    var fullname = ""
+    var bio = ""
+    var tags : [Int : String] = [:]
+    var phone = ""
+    
+    init(email: String, image: String, id: Int, name: String, fullname: String, bio: String, tags: [Int: String], phone: String) {
+          self.email = email
+          self.image = image
+          self.id = id
+          self.name = name
+          self.fullname = fullname
+          self.bio = bio
+          self.tags = tags
+          self.phone = phone
+      }
+}
 
 class LoginAPi{
     
+    static func UpdateInfo(name: String, profile_name : String, bio:String, email:String, image: UIImage, tags : Array<Int>, completion : @escaping (_ Info : String)->()){
+        print(openCartApi.token)
+        let headers : HTTPHeaders = ["Authorization": "Bearer \(openCartApi.token)", "Content-Type": "application/json"]
+        guard let stringUrl = URL(string: "\(API.URL)api/update_account") else {
+            MessageBox.ShowMessage(Text:"Connection interrupted with server")
+            return
+        }
+        var jsonDict: [String: Any] = [:]
+
+        guard let imageData = image.jpegData(compressionQuality: 0.8) else {
+            MessageBox.ShowMessage(Text:"Could not convert image to data, choose another one")
+            return
+        }
+        
+        
+        AF.upload(multipartFormData: { multipartFormData in
+
+            multipartFormData.append(imageData, withName: "image", fileName: "profile_image.jpg", mimeType: "image/jpeg")
+
+            for (i, tag) in tags.enumerated() {
+                let tagName = "tags[\(i)]"
+                multipartFormData.append(String(tag).data(using: .utf8)!, withName: tagName)
+
+                jsonDict[tagName] = tag
+            }
+            
+            
+            multipartFormData.append(profile_name.data(using: .utf8)!, withName: "name");jsonDict["name"] = profile_name
+            multipartFormData.append(name.data(using: .utf8)!, withName: "fullname");jsonDict["full_name"] = name
+            multipartFormData.append(bio.data(using: .utf8)!, withName: "bio");jsonDict["bio"] = bio
+            multipartFormData.append(email.data(using: .utf8)!, withName: "email");jsonDict["email"] = email
+            
+            
+            if let jsonData = try? JSONSerialization.data(withJSONObject: jsonDict, options: .prettyPrinted) {
+                   if let jsonString = String(data: jsonData, encoding: .utf8) {
+                       print(jsonString)
+                   }
+               }
+           
+            
+        }, to: stringUrl, method: .post, headers: headers)
+        .responseData { response in
+            switch response.result {
+            case .success:
+                let jsonData = JSON(response.data ?? Data())
+                print(jsonData)
+                if(jsonData[0] == "error"){
+                    completion("")
+                    MessageBox.ShowMessage(Text: "\(jsonData[0])")
+                }else{
+                    completion(jsonData["status"].string ?? "")
+                    MessageBox.ShowMessage(Text: jsonData["message"].string ?? "")
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+                completion("")
+            }
+        }
+        
+       
+    }
+    
+    static func GetProfileInfo( completion : @escaping (_ Info : ProfileData)->()){
+        let stringUrl = URL(string: "\("\(API.URL)api/my_profile")");
+        let headers : HTTPHeaders = ["Authorization": "Bearer \(openCartApi.token)", "Content-Type": "application/json"]
+        AF.request(stringUrl!, method: .get, headers: headers).responseData { response in
+            switch response.result
+            {
+            case .success:
+                let jsonData = JSON(response.data ?? "")
+                print(jsonData)
+                if(jsonData[0] == "error"){
+                    completion(ProfileData(email: "", image: "", id: 0, name: "", fullname: "", bio: "", tags: [:], phone: ""))
+                    MessageBox.ShowMessage(Text: "\(jsonData[0])")
+                }else{
+                    let profile = jsonData["profile"]
+                    
+                 
+                    var tags: [Int: String] = [:]
+                    for tag in profile["tags"].arrayValue {
+                        let id = tag["id"].intValue
+                        let name = tag["name"].stringValue
+                        tags[id] = name
+                    }
+                    
+                    let profileData = ProfileData(
+                        email: profile["email"].stringValue,
+                        image: profile["image"].stringValue,
+                        id: profile["id"].intValue,
+                        name: profile["name"].stringValue,
+                        fullname: profile["fullname"].stringValue,
+                        bio: profile["bio"].string ?? "",
+                        tags: tags,
+                        phone: profile["phone"].stringValue
+                    )
+                    
+                    completion(profileData)
+                }
+            case .failure(let error):
+                print(error);
+            }
+        }
+    }
+    
+    static func GetSlides( completion : @escaping (_ lol : String)->()){
+        let stringUrl = URL(string: "\("\(API.URL)api/get_slider")");
+        let headers : HTTPHeaders = ["Authorization": "Bearer \(openCartApi.token)", "Content-Type": "application/json"]
+        AF.request(stringUrl!, method: .get, headers: headers).responseData { response in
+            switch response.result
+            {
+            case .success:
+                let jsonData = JSON(response.data ?? "")
+                print(jsonData)
+                if(jsonData[0] == "error"){
+                    completion("")
+                    MessageBox.ShowMessage(Text: "\(jsonData[0])")
+                }else{
+                        
+                }
+            case .failure(let error):
+                print(error);
+            }
+        }
+    }
     
     
     static func SendOTP(Phone : String, completion : @escaping (_ lol : String)->()){
@@ -162,29 +306,17 @@ class LoginAPi{
             return
         }
         var jsonDict: [String: Any] = [:]
-        
-        print(profile_name)
-        print(full_name)
-        print(bio)
-        print(tags)
-        print(phone)
-        print(otp)
 
-        // Convert UIImage to Data
         guard let imageData = image.jpegData(compressionQuality: 0.8) else {
             MessageBox.ShowMessage(Text:"Could not convert image to data")
             return
         }
         
-        // Make the request using multipart form data
+        
         AF.upload(multipartFormData: { multipartFormData in
 
             multipartFormData.append(imageData, withName: "image", fileName: "profile_image.jpg", mimeType: "image/jpeg")
-           
-//            if let tagsData = try? JSONSerialization.data(withJSONObject: tags, options: []) {
-//                   multipartFormData.append(tagsData, withName: "tags")
-//               }
-            
+
             for (i, tag) in tags.enumerated() {
                 let tagName = "tags[\(i)]"
                 multipartFormData.append(String(tag).data(using: .utf8)!, withName: tagName)
@@ -192,7 +324,7 @@ class LoginAPi{
                 jsonDict[tagName] = tag
             }
             
-            // Append text parameters
+            
             multipartFormData.append(profile_name.data(using: .utf8)!, withName: "name");jsonDict["name"] = profile_name
             multipartFormData.append(full_name.data(using: .utf8)!, withName: "fullname");jsonDict["full_name"] = full_name
             multipartFormData.append(bio.data(using: .utf8)!, withName: "bio");jsonDict["bio"] = bio
@@ -246,11 +378,11 @@ class LoginAPi{
 
 class TagsObject{
     var id = 0
-    var tag = ""
+    var name = ""
     
-    init(id: Int, tag: String) {
+    init(id: Int, name: String) {
         self.id = id
-        self.tag = tag
+        self.name = name
     }
 }
 
@@ -272,7 +404,27 @@ class TagsObjectApi{
                 let jsonData = JSON(response.data ?? "")
                 //print(jsonData)
                 for (_,val) in jsonData["data"]{
-                    let tag = TagsObject(id: val["id"].int ?? 0, tag: val["name"].string ?? "")
+                    let tag = TagsObject(id: val["id"].int ?? 0, name: val["name"].string ?? "")
+                    tags.append(tag);
+                }
+                completion(tags)
+            case .failure(let error):
+                print(error);
+            }
+        }
+    }
+    
+    static func GetAllTags(completion : @escaping (_ TagsObject : [TagsObject])->()){
+        let stringUrl = URL(string: "\("\(API.URL)api/search_tag")");
+        var tags : [TagsObject] = []
+        AF.request(stringUrl!, method: .get).responseData { response in
+            switch response.result
+            {
+            case .success:
+                let jsonData = JSON(response.data ?? "")
+                print(jsonData)
+                for (_,val) in jsonData["data"]{
+                    let tag = TagsObject(id: val["id"].int ?? 0, name: val["name"].string ?? "")
                     tags.append(tag);
                 }
                 completion(tags)
