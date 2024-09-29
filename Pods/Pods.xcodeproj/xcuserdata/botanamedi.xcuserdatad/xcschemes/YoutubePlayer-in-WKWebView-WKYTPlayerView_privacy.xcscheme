@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "21CF20A5326D9A4DB81EF5B585359601"
-               BuildableName = "XP_PDFReader.framework"
-               BlueprintName = "XP_PDFReader"
+               BlueprintIdentifier = "D63FD6DAABCA91837A7C8A3839E2BB61"
+               BuildableName = "WKYTPlayerView_privacy.bundle"
+               BlueprintName = "YoutubePlayer-in-WKWebView-WKYTPlayerView_privacy"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

@@ -220,7 +220,7 @@ class SignUpVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, Passw
                 LoginAPi.SendOTP(Phone: self.Phone.text!.convertedDigitsToLocale(Locale(identifier: "EN")).replace(string: " ", replacement: "")) { Send in
                     RSLoadingView.hide(from: self.view)
                     self.OTP.becomeFirstResponder()
-                    MessageBox.ShowMessage(Text: "کودێ پشتراسکرنێ هاتە هنارتن")
+//                    MessageBox.ShowMessage(Text: "کودێ پشتراسکرنێ هاتە هنارتن")
                 }
             }else{
                 RSLoadingView.hide(from: self.view)
@@ -396,6 +396,7 @@ class SignUpVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, Passw
                         vc.modalTransitionStyle = .crossDissolve
                         self.present(vc, animated: true)
                     }
+                    
                 }
                 
                 
@@ -403,38 +404,47 @@ class SignUpVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, Passw
                 RSLoadingView.hide(from: self.view)
                 if self.ProfileName.text! == ""{
                     MessageBox.ShowMessage(Text: "هیڤیە ناڤێ پروفایلی بنڤیسە")
+                    return
                 }
                 
                 if self.Name.text! == ""{
                     MessageBox.ShowMessage(Text: "هیڤیە ناڤێ تەمام بنڤیسە")
+                    return
                 }
                 
                 if self.forCollection.count == 0{
                     MessageBox.ShowMessage(Text: "هیڤیە تا ٥ تاگسان هەلبژێرە")
+                    return
                 }
                 
                 if self.Phone.text! == ""{
                     MessageBox.ShowMessage(Text: "هیڤیە ژمارا موبایلێ بنڤیسە")
+                    return
                 }
                 
                 if self.OTP.text! == ""{
                     MessageBox.ShowMessage(Text: "هیڤیە کودێ پشتراستکرنێ بنڤیسە")
+                    return
                 }
                 
                 if self.Password.text! == ""{
                     MessageBox.ShowMessage(Text: "هیڤیە وشا نهێنی بنڤیسە")
+                    return
                 }
                 
                 if self.ConfirmPassword.text! == ""{
                     MessageBox.ShowMessage(Text: "هیڤیە دوپاتکرنا وشا نهێنی بنڤیسە")
+                    return
                 }
                 
                 if self.Email.text! == ""{
                     MessageBox.ShowMessage(Text: "هیڤیە ئیمایلی بنڤیسە")
+                    return
                 }
                 
                 if self.Bio.text! == ""{
                     MessageBox.ShowMessage(Text: "هیڤیە بایۆ پربکە")
+                    return
                 }
             }
         }else{

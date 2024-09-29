@@ -24,26 +24,43 @@ let APP_TITLE = "PDK One"
 
 
 
+class  SlidesObject {
+    var id = ""
+    var link = ""
+    var image = ""
+    
+    init(id : String ,link : String , image : String) {
+        self.id = id
+        self.link = link
+        self.image = image
+    }
+}
 
 
-
-class QuestionObjects{
-    var question = ""
-    var answer1 = ""
-    var answer2 = ""
-    var answer3 = ""
-    var answer4 = ""
-    
-    var correct_answer = ""
-    
-    
-    init(question: String , answer1: String, answer2: String , answer3: String, answer4: String , correct_answer: String ) {
-        self.question = question
-        self.answer1 = answer1
-        self.answer2 = answer2
-        self.answer3 = answer3
-        self.answer4 = answer4
-        self.correct_answer = correct_answer
+class SlidesObjectAPI {
+    static func GetSlideImage(completion :@escaping (_ SlideImage : [SlidesObject])->()){
+        let stringUrl = URL(string: "\(API.URL)api/get_slider");
+        var Slide = [SlidesObject]()
+        let headers : HTTPHeaders = ["Authorization": "Bearer \(openCartApi.token)"]
+        AF.request(stringUrl!, method: .get, headers: headers).responseData { response in
+            switch response.result
+            {
+            case .success:
+                let jsonData = JSON(response.data ?? "")
+                    let slids = jsonData["data"].arrayValue
+                    
+                    for sld in slids {
+                        let slide = SlidesObject(id: sld["id"].string ?? "",
+                                                    link: sld["link"].string ?? "",
+                                                    image: sld["image"].string ?? "")
+                           Slide.append(slide)
+                    }
+                 
+                completion(Slide)
+            case .failure(let error):
+                print(error);
+            }
+        }
     }
     
 }
@@ -71,11 +88,13 @@ class ProfileData{
       }
 }
 
+
+
 class LoginAPi{
     
     static func UpdateInfo(name: String, profile_name : String, bio:String, email:String, image: UIImage, tags : Array<Int>, completion : @escaping (_ Info : String)->()){
         print(openCartApi.token)
-        let headers : HTTPHeaders = ["Authorization": "Bearer \(openCartApi.token)", "Content-Type": "application/json"]
+        let headers : HTTPHeaders = ["Authorization": "Bearer \(openCartApi.token)"]
         guard let stringUrl = URL(string: "\(API.URL)api/update_account") else {
             MessageBox.ShowMessage(Text:"Connection interrupted with server")
             return
@@ -137,7 +156,7 @@ class LoginAPi{
     
     static func GetProfileInfo( completion : @escaping (_ Info : ProfileData)->()){
         let stringUrl = URL(string: "\("\(API.URL)api/my_profile")");
-        let headers : HTTPHeaders = ["Authorization": "Bearer \(openCartApi.token)", "Content-Type": "application/json"]
+        let headers : HTTPHeaders = ["Authorization": "Bearer \(openCartApi.token)"]
         AF.request(stringUrl!, method: .get, headers: headers).responseData { response in
             switch response.result
             {
@@ -177,27 +196,56 @@ class LoginAPi{
         }
     }
     
-    static func GetSlides( completion : @escaping (_ lol : String)->()){
-        let stringUrl = URL(string: "\("\(API.URL)api/get_slider")");
-        let headers : HTTPHeaders = ["Authorization": "Bearer \(openCartApi.token)", "Content-Type": "application/json"]
-        AF.request(stringUrl!, method: .get, headers: headers).responseData { response in
+    
+    
+    
+    
+    static func profile_serach_by_tag(tag_id:Int, completion : @escaping (_ Info : ProfileData)->()){
+        let stringUrl = URL(string: "\("\(API.URL)api/profile_serach_by_tag")");
+        let headers : HTTPHeaders = ["Authorization": "Bearer \(openCartApi.token)"]
+        
+        let param: [String: Any] = [
+            "tag_id":tag_id
+        ]
+        
+        AF.request(stringUrl!, method: .get, parameters: param, headers: headers).responseData { response in
             switch response.result
             {
             case .success:
                 let jsonData = JSON(response.data ?? "")
                 print(jsonData)
                 if(jsonData[0] == "error"){
-                    completion("")
+                    completion(ProfileData(email: "", image: "", id: 0, name: "", fullname: "", bio: "", tags: [:], phone: ""))
                     MessageBox.ShowMessage(Text: "\(jsonData[0])")
                 }else{
-                        
+                    let profile = jsonData["profile"]
+                    
+                 
+                    var tags: [Int: String] = [:]
+                    for tag in profile["tags"].arrayValue {
+                        let id = tag["id"].intValue
+                        let name = tag["name"].stringValue
+                        tags[id] = name
+                    }
+                    
+                    let profileData = ProfileData(
+                        email: profile["email"].stringValue,
+                        image: profile["image"].stringValue,
+                        id: profile["id"].intValue,
+                        name: profile["name"].stringValue,
+                        fullname: profile["fullname"].stringValue,
+                        bio: profile["bio"].string ?? "",
+                        tags: tags,
+                        phone: profile["phone"].stringValue
+                    )
+                    
+                    completion(profileData)
                 }
             case .failure(let error):
                 print(error);
             }
         }
     }
-    
     
     static func SendOTP(Phone : String, completion : @escaping (_ lol : String)->()){
         let stringUrl = URL(string: "\("\(API.URL)api/send_otp")");
@@ -237,10 +285,7 @@ class LoginAPi{
             case .success:
                 let jsonData = JSON(response.data ?? "")
                 print(jsonData)
-                if(jsonData[0] == "error"){print("999999")
-                    completion("")
-                    MessageBox.ShowMessage(Text: "\(jsonData[0])")
-                }else{
+ 
                     status = jsonData["status"].string ?? ""
                     if status != "success"{
                         MessageBox.ShowMessage(Text: jsonData["message"].string ?? "")
@@ -251,7 +296,7 @@ class LoginAPi{
                         openCartApi.token = UserDefaults.standard.string(forKey: "token") ?? ""
                         completion(status)
                     }
-                }
+                
                 
             case .failure(let error):
                 print(error);
@@ -348,13 +393,7 @@ class LoginAPi{
                 var status = ""
                 let jsonData = JSON(response.data ?? Data())
                 print(jsonData)
-                if(jsonData[0] == "error"){
-                    completion("")
-                    MessageBox.ShowMessage(Text: "\(jsonData[0])")
-                }else{
-
                     status = jsonData["status"].string ?? ""
-                    
                     if status != "success"{
                         MessageBox.ShowMessage(Text: jsonData["message"].string ?? "")
                         completion("")
@@ -364,7 +403,6 @@ class LoginAPi{
                         openCartApi.token = UserDefaults.standard.string(forKey: "token") ?? ""
                         completion(status)
                     }
-                }
             case .failure(let error):
                 print(error.localizedDescription)
                 completion("")
@@ -389,11 +427,8 @@ class TagsObject{
 
 class TagsObjectApi{
     static func GetTags(text: String,completion : @escaping (_ TagsObject : [TagsObject])->()){
-        
         let stringUrl = URL(string: "\("\(API.URL)api/search_tag")");
-
         var tags : [TagsObject] = []
-//        let headers : HTTPHeaders = ["Authorization": "Bearer your_generated_token", "Content-Type": "application/json"]
         let param: [String: Any] = [
             "text":text
         ]
@@ -402,7 +437,7 @@ class TagsObjectApi{
             {
             case .success:
                 let jsonData = JSON(response.data ?? "")
-                //print(jsonData)
+                print(jsonData)
                 for (_,val) in jsonData["data"]{
                     let tag = TagsObject(id: val["id"].int ?? 0, name: val["name"].string ?? "")
                     tags.append(tag);
@@ -435,3 +470,608 @@ class TagsObjectApi{
     }
 }
 
+
+
+class QuizObject{
+    var gift_name = ""
+    var link = ""
+    var id = 0
+    var youtube_link = ""
+    var description = ""
+    var title = ""
+    var gift_winners = 0
+    var start_time = ""
+    var imagee = ""
+    
+    init(gift_name: String, link: String, id: Int, youtube_link: String, description: String, title: String, gift_winners: Int, start_time: String,imagee : String) {
+        self.gift_name = gift_name
+        self.link = link
+        self.id = id
+        self.youtube_link = youtube_link
+        self.description = description
+        self.title = title
+        self.gift_winners = gift_winners
+        self.start_time = start_time
+        self.imagee = imagee
+    }
+}
+
+
+class QuestionObject {
+    var enrollId: Int
+    var status: String
+    var level: Int
+    var message: String
+    var remain_users: String
+    var total_users: String
+    init(enrollId: Int, status: String, level: Int, message: String, remain_users: String, total_users: String) {
+        self.enrollId = enrollId
+        self.status = status
+        self.level = level
+        self.message = message
+        self.remain_users = remain_users
+        self.total_users = total_users
+    }
+}
+
+class Question {
+    var title: String
+    var time: Int
+    var answer: String
+    var id: Int
+
+    init(title: String, time: Int, answer: String, id: Int) {
+        self.title = title
+        self.time = time
+        self.answer = answer
+        self.id = id
+    }
+}
+
+class OptionsObject {
+    var a: String
+    var b: String
+    var c: String
+    var d: String
+
+    init(a: String, b: String, c: String, d: String) {
+        self.a = a
+        self.b = b
+        self.c = c
+        self.d = d
+    }
+}
+
+
+
+class Winner {
+    var name: String
+    var image: String
+    var level: Int
+    var date = ""
+    
+    init(name: String, image: String, level: Int, date : String) {
+        self.name = name
+        self.image = image
+        self.level = level
+        self.date = date
+    }
+}
+
+
+class QuizObjectApi{
+    static func GetQuizs(completion :@escaping (_ Quiz : [QuizObject])->()){
+        
+        let stringUrl = URL(string: "\("\(API.URL)api/get_quizzes")");
+        
+        var quizs : [QuizObject] = []
+        let headers : HTTPHeaders = ["Authorization": "Bearer \(openCartApi.token)"]
+ 
+        AF.request(stringUrl!, method: .get, headers: headers).responseData { response in
+            switch response.result
+            {
+            case .success:
+                let jsonData = JSON(response.data ?? "")
+                print(jsonData)
+                for (_,val) in jsonData["data"]{
+                    let quiz = QuizObject(gift_name: val["gift_name"].string ?? "",
+                                          link: val["link"].string ?? "",
+                                          id: val["id"].int ?? 0,
+                                          youtube_link: val["youtube_link"].string ?? "",
+                                          description: val["description"].string ?? "",
+                                          title: val["title"].string ?? "",
+                                          gift_winners: val["gift_winners"].int ?? 0,
+                                          start_time: val["start_time"].string ?? "",imagee: val["image"].string ?? "")
+                    quizs.append(quiz);
+                }
+                completion(quizs)
+            case .failure(let error):
+                print(error);
+            }
+        }
+    }
+    
+    
+    static func EnrollQuizs(quiz_id : Int,completion :@escaping (_ sms : String)->()){
+        let stringUrl = URL(string: "\(API.URL)api/enroll_quiz");
+        
+        let headers : HTTPHeaders = ["Authorization": "Bearer \(openCartApi.token)"]
+        let param: [String: Any] = [
+            "quiz_id": quiz_id
+        ]
+        
+        
+        AF.request(stringUrl!, method: .post, parameters: param, headers: headers).responseData { response in
+            switch response.result
+            {
+            case .success:
+                let jsonData = JSON(response.data ?? "")
+                print("jsonData---------")
+                print(jsonData)
+                
+                completion(jsonData["status"].stringValue)
+            case .failure(let error):
+                print(error);
+            }
+        }
+    }
+    
+    
+    
+    
+    
+    
+    static func start_quiz(quiz_id : Int,completion :@escaping (_ question_object : QuestionObject, _ question: Question, _ options: [(key: String, value: String)])->()){
+        let stringUrl = URL(string: "\(API.URL)api/start_quiz");
+        
+        let headers : HTTPHeaders = ["Authorization": "Bearer \(openCartApi.token)"]
+        let param: [String: Any] = [
+            "quiz_id": quiz_id
+        ]
+        
+        AF.request(stringUrl!, method: .post, parameters: param, headers: headers).responseData { response in
+            switch response.result
+            {
+            case .success:
+                let jsonData = JSON(response.data ?? "")
+                print("jsonData---------")
+                print(jsonData)
+                let question = Question(
+                    title: jsonData["question"]["title"].stringValue,
+                    time: jsonData["question"]["time"].intValue,
+                    answer: jsonData["question"]["answer"].stringValue,
+                    id: jsonData["question"]["id"].intValue
+                )
+                
+                
+                var optionsArray: [(key: String, value: String)] = []
+                // Parse the options object
+                if let options = jsonData["options"].dictionary {
+                    // Iterate through the dictionary and append to the array
+                    for (key, value) in options {
+                        optionsArray.append((key: key, value: value.stringValue))
+                    }
+                }
+                    
+                    
+                
+                // Create the final QuestionObject
+                let questionObject = QuestionObject(
+                    enrollId: jsonData["enrollid"].intValue,
+                    status: jsonData["status"].stringValue,
+                    level: jsonData["level"].intValue,
+                    message: jsonData["message"].stringValue,
+                    remain_users: jsonData["remain_users"].stringValue,
+                    total_users: jsonData["total_users"].stringValue
+                )
+                completion(questionObject, question, optionsArray)
+            case .failure(let error):
+                print(error);
+            }
+        }
+    }
+    
+    
+    static func next_question(quiz_id : Int,completion :@escaping (_ question_object : QuestionObject, _ question: Question, _ options: [(key: String, value: String)], _ Statue: String)->()){
+        let stringUrl = URL(string: "\(API.URL)api/next_question");
+        
+        let headers : HTTPHeaders = ["Authorization": "Bearer \(openCartApi.token)"]
+        let param: [String: Any] = [
+            "quiz_id": quiz_id
+        ]
+        
+        AF.request(stringUrl!, method: .post, parameters: param, headers: headers).responseData { response in
+            switch response.result
+            {
+            case .success:
+                let jsonData = JSON(response.data ?? "")
+                print("First---------")
+                print(jsonData)
+                let question = Question(
+                    title: jsonData["question"]["title"].stringValue,
+                    time: jsonData["question"]["time"].intValue,
+                    answer: jsonData["question"]["answer"].stringValue,
+                    id: jsonData["question"]["id"].intValue
+                )
+                
+                
+                var optionsArray: [(key: String, value: String)] = []
+                // Parse the options object
+                if let options = jsonData["options"].dictionary {
+                    // Iterate through the dictionary and append to the array
+                    for (key, value) in options {
+                        optionsArray.append((key: key, value: value.stringValue))
+                    }
+                }
+                    
+                
+                // Create the final QuestionObject
+                let questionObject = QuestionObject(
+                    enrollId: jsonData["enrollid"].intValue,
+                    status: jsonData["status"].stringValue,
+                    level: jsonData["level"].intValue,
+                    message: jsonData["message"].stringValue,
+                    remain_users: jsonData["remain_users"].stringValue,
+                    total_users: jsonData["total_users"].stringValue
+                )
+                
+                let statue = jsonData["status"].stringValue
+                
+                completion(questionObject, question, optionsArray,statue)
+            case .failure(let error):
+                print(error);
+            }
+        }
+    }
+    
+    
+    
+    
+    
+    
+    static func SubmitAnswer(quiz_id : Int,question_id: Int,answer:String,completion :@escaping (_ Info : String)->()){
+        let stringUrl = URL(string: "\(API.URL)api/submit_answer");
+        
+        let headers : HTTPHeaders = ["Authorization": "Bearer \(openCartApi.token)"]
+        let param: [String: Any] = [
+            "quiz_id": quiz_id,
+            "question_id":question_id,
+            "answer": answer
+        ]
+        AF.request(stringUrl!, method: .post, parameters: param, headers: headers).responseData { response in
+            switch response.result
+            {
+            case .success:
+                let jsonData = JSON(response.data ?? "")
+                print("Submit--------------Submit")
+                print(jsonData)
+                
+                completion(jsonData["status"].stringValue)
+            case .failure(let error):
+                print(error);
+            }
+        }
+    }
+    
+    
+    
+    static func get_last_quiz_winner(completion :@escaping (_ winner : [Winner],_ others : [Winner])->()){
+
+        let url = "https://pdkone.com/api/get_last_quiz_winner"
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(openCartApi.token)",
+            "Content-Type": "multipart/form-data"
+        ]
+
+     
+        let parameters: [[String: Any]] = [
+            // Your parameters here
+        ]
+
+        AF.upload(multipartFormData: { multipartFormData in
+            for param in parameters {
+                if param["disabled"] != nil { continue }
+                
+                let paramName = param["key"] as! String
+                let paramType = param["type"] as! String
+                
+                if paramType == "text" {
+                    let paramValue = param["value"] as! String
+                    multipartFormData.append(Data(paramValue.utf8), withName: paramName)
+                } else if paramType == "file" {
+                    let paramSrc = param["src"] as! String
+                    let fileURL = URL(fileURLWithPath: paramSrc)
+                    if let fileData = try? Data(contentsOf: fileURL) {
+                        multipartFormData.append(fileData, withName: paramName, fileName: paramSrc, mimeType: param["contentType"] as? String)
+                    }
+                }
+            }
+        }, to: url, method: .get, headers: headers).response { response in
+            switch response.result {
+            case .success:
+                let jsonData = JSON(response.data ?? "")
+                
+                    let topWinnersArray = jsonData["top_winners"].arrayValue
+                    let other_participants = jsonData["other_participants"].arrayValue
+                    var winners: [Winner] = []
+                    var other_part : [Winner] = []
+                    for winnerJSON in topWinnersArray {
+                            let name = winnerJSON["name"].stringValue
+                            let image = winnerJSON["image"].stringValue
+                            let level = winnerJSON["level"].intValue
+                            
+                        let winner = Winner(name: name, image: image, level: level, date: "")
+                            winners.append(winner)
+                        }
+                    
+                    for winnerJSON in other_participants {
+                            let name = winnerJSON["name"].stringValue
+                            let image = winnerJSON["image"].stringValue
+                            let level = winnerJSON["level"].intValue
+                            
+                        let other = Winner(name: name, image: image, level: level, date: "")
+                            other_part.append(other)
+                        }
+                    print(topWinnersArray)
+                    completion(winners, other_part)
+                
+            case .failure(let error):
+                print("Error: \(error)")
+            }
+        }
+
+    }
+    
+    
+    static func profile_serach_by_tag(tag_id: Int,completion :@escaping (_ infoo : [ProfileData])->()){
+        let stringUrl = URL(string: "\(API.URL)api/profile_serach_by_tag");
+        let param: [String: Any] = [
+            "tag_id": tag_id
+        ]
+        var profiles : [ProfileData] = []
+        let headers : HTTPHeaders = ["Authorization": "Bearer \(openCartApi.token)", "Content-Type": "multipart/form-data"]
+        AF.request(stringUrl!, method: .get, parameters: param, headers: headers).responseData { response in
+            switch response.result
+            {
+            case .success:
+                let jsonData = JSON(response.data ?? "")
+                print("profile_serach_by_tag--------------Submit")
+                print(jsonData)
+                
+                for (_,val) in jsonData["data"]{
+                    
+                    var tags: [Int: String] = [:]
+                    for tag in val["tags"].arrayValue {
+                        let id = tag["id"].intValue
+                        let name = tag["name"].stringValue
+                        tags[id] = name
+                    }
+                    
+                    let profileData = ProfileData(
+                        email: "",
+                        image: val["image"].stringValue,
+                        id: 0,
+                        name: val["name"].stringValue,
+                        fullname: "",
+                        bio: "",
+                        tags: tags,
+                        phone: ""
+                    )
+                    
+                    profiles.append(profileData)
+                    
+                }
+                
+                completion(profiles)
+                
+            case .failure(let error):
+                print(error);
+            }
+        }
+    }
+    
+    static func logout(completion :@escaping (_ Info : String)->()){
+        let stringUrl = URL(string: "\(API.URL)api/logout");
+        
+        let headers : HTTPHeaders = ["Authorization": "Bearer \(openCartApi.token)", "Content-Type": "multipart/form-data"]
+        AF.request(stringUrl!, method: .get, headers: headers).responseData { response in
+            switch response.result
+            {
+            case .success:
+                let jsonData = JSON(response.data ?? "")
+                print("logout--------------Submit")
+                print(jsonData)
+                
+                completion("kkkkk")
+            case .failure(let error):
+                print(error);
+            }
+        }
+    }
+    
+    
+    static func delete_account(completion :@escaping (_ Info : String)->()){
+        let stringUrl = URL(string: "\(API.URL)api/delete_account");
+        
+        let headers : HTTPHeaders = ["Authorization": "Bearer \(openCartApi.token)", "Content-Type": "multipart/form-data"]
+        AF.request(stringUrl!, method: .get, headers: headers).responseData { response in
+            switch response.result
+            {
+            case .success:
+                let jsonData = JSON(response.data ?? "")
+                print("delete_account--------------Submit")
+                print(jsonData)
+                
+                completion("kkkkk")
+            case .failure(let error):
+                print(error);
+            }
+        }
+    }
+    
+    
+    static func profile_serach(text: String, completion :@escaping (_ Info : [ProfileData])->()){
+        let stringUrl = URL(string: "\(API.URL)api/profile_serach");
+        let param: [String: Any] = [
+            "text": text
+        ]
+        var profiles : [ProfileData] = []
+        let headers : HTTPHeaders = ["Authorization": "Bearer \(openCartApi.token)", "Content-Type": "multipart/form-data"]
+        AF.request(stringUrl!, method: .get, parameters: param, headers: headers).responseData { response in
+            switch response.result
+            {
+            case .success:
+                let jsonData = JSON(response.data ?? "")
+                print("text--------------Submit")
+                print(jsonData)
+                
+                for (_,val) in jsonData["data"]{
+                    
+                    var tags: [Int: String] = [:]
+                    for tag in val["tags"].arrayValue {
+                        let id = tag["id"].intValue
+                        let name = tag["name"].stringValue
+                        tags[id] = name
+                    }
+                    
+                    let profileData = ProfileData(
+                        email: "",
+                        image: val["image"].stringValue,
+                        id: 0,
+                        name: val["name"].stringValue,
+                        fullname: "",
+                        bio: "",
+                        tags: tags,
+                        phone: ""
+                    )
+                    
+                    profiles.append(profileData)
+                    
+                }
+                
+                completion(profiles)
+                
+            case .failure(let error):
+                print(error);
+            }
+        }
+    }
+    
+    
+    
+    static func get_week_quiz_winner(completion :@escaping (_ Saturday : [Winner], _ Sunday : [Winner], _ Monday : [Winner], _ Tuesday : [Winner], _ Wednesday : [Winner], _ Thursday : [Winner],  _ Friday : [Winner])->()){
+        let url = "https://pdkone.com/api/get_week_quiz_winner"
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(openCartApi.token)",
+            "Content-Type": "multipart/form-data"
+        ]
+
+        let parameters: [[String: Any]] = [
+            // Your parameters here
+        ]
+
+        AF.upload(multipartFormData: { multipartFormData in
+            for param in parameters {
+                if param["disabled"] != nil { continue }
+                
+                let paramName = param["key"] as! String
+                let paramType = param["type"] as! String
+                
+                if paramType == "text" {
+                    let paramValue = param["value"] as! String
+                    multipartFormData.append(Data(paramValue.utf8), withName: paramName)
+                } else if paramType == "file" {
+                    let paramSrc = param["src"] as! String
+                    let fileURL = URL(fileURLWithPath: paramSrc)
+                    if let fileData = try? Data(contentsOf: fileURL) {
+                        multipartFormData.append(fileData, withName: paramName, fileName: paramSrc, mimeType: param["contentType"] as? String)
+                    }
+                }
+            }
+        }, to: url, method: .get, headers: headers).response { response in
+            switch response.result {
+            case .success:
+                let jsonData = JSON(response.data ?? "")
+                print(jsonData)
+                var SaturdayWinners: [Winner] = []
+                var SundayWinners: [Winner] = []
+                var MondayWinners: [Winner] = []
+                var TuesdayWinners: [Winner] = []
+                var WednesdayWinners: [Winner] = []
+                var ThursdayWinners: [Winner] = []
+                var FridayWinners: [Winner] = []
+                
+                let Saturday = jsonData["top_winners"]["Saturday"].arrayValue
+                let Sunday = jsonData["top_winners"]["Sunday"].arrayValue
+                let Monday = jsonData["top_winners"]["Monday"].arrayValue
+                let Tuesday = jsonData["top_winners"]["Tuesday"].arrayValue
+                let Wednesday = jsonData["top_winners"]["Wednesday"].arrayValue
+                let Thursday = jsonData["top_winners"]["Thursday"].arrayValue
+                let Friday = jsonData["top_winners"]["Friday"].arrayValue
+                
+                
+                for winwers in Saturday{
+                    let win = Winner(name: winwers["name"].stringValue, image: winwers["image"].stringValue, level: winwers["level"].intValue, date: winwers["date"].stringValue)
+                    SaturdayWinners.append(win)
+                }
+                
+                for winwers in Sunday{
+                    let win = Winner(name: winwers["name"].stringValue, image: winwers["image"].stringValue, level: winwers["level"].intValue, date: winwers["date"].stringValue)
+                    SundayWinners.append(win)
+                }
+                
+                for winwers in Monday{
+                    let win = Winner(name: winwers["name"].stringValue, image: winwers["image"].stringValue, level: winwers["level"].intValue, date: winwers["date"].stringValue)
+                    MondayWinners.append(win)
+                }
+                
+                for winwers in Tuesday{
+                    let win = Winner(name: winwers["name"].stringValue, image: winwers["image"].stringValue, level: winwers["level"].intValue, date: winwers["date"].stringValue)
+                    TuesdayWinners.append(win)
+                }
+                
+                for winwers in Wednesday{
+                    let win = Winner(name: winwers["name"].stringValue, image: winwers["image"].stringValue, level: winwers["level"].intValue, date: winwers["date"].stringValue)
+                    WednesdayWinners.append(win)
+                }
+                
+                for winwers in Thursday{
+                    let win = Winner(name: winwers["name"].stringValue, image: winwers["image"].stringValue, level: winwers["level"].intValue, date: winwers["date"].stringValue)
+                    ThursdayWinners.append(win)
+                }
+                
+                for winwers in Friday{
+                    let win = Winner(name: winwers["name"].stringValue, image: winwers["image"].stringValue, level: winwers["level"].intValue, date: winwers["date"].stringValue)
+                    FridayWinners.append(win)
+                }
+                
+                completion(SaturdayWinners, SundayWinners, MondayWinners, TuesdayWinners, WednesdayWinners, ThursdayWinners, FridayWinners)
+            
+            case .failure(let error):
+                print("Error: \(error)")
+            }
+        }
+    }
+    
+    
+    static func get_about(completion :@escaping (_ term_condition : String, _ about_project : String, _ about_us : String)->()){
+        let stringUrl = URL(string: "\(API.URL)api/get_about");
+        AF.request(stringUrl!, method: .get).responseData { response in
+            switch response.result
+            {
+            case .success:
+                let jsonData = JSON(response.data ?? "")
+                print("get_about--------------Submit")
+                print(jsonData)
+                let term_condition = jsonData["term_conditions"].stringValue
+                let about_project = jsonData["about_project"].stringValue
+                let about_us = jsonData["about_us"].stringValue
+                completion(term_condition, about_project, about_us)
+            case .failure(let error):
+                print(error);
+            }
+        }
+    }
+    
+    
+}

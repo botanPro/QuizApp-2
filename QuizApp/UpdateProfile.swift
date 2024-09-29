@@ -68,7 +68,7 @@ class UpdateProfile: UIViewController , UITextFieldDelegate, UITextViewDelegate,
         LoginAPi.GetProfileInfo { [self] info in
            
             
-            if let imageUrl = URL(string: "https://pdkone.com/storage/user_images/1724686291_66cc9fd3216e4.jpg") {
+            if let imageUrl = URL(string: info.image) {
                 self.Image.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "account-avatar-profile-user-svgrepo-com"))
             }else{
                 self.Image.image = UIImage(named: "account-avatar-profile-user-svgrepo-com")
@@ -246,22 +246,27 @@ class UpdateProfile: UIViewController , UITextFieldDelegate, UITextViewDelegate,
                 RSLoadingView.hide(from: self.view)
                 if self.ProfileName.text! == ""{
                     MessageBox.ShowMessage(Text: "هیڤیە ناڤێ پروفایلی بنڤیسە")
+                    return
                 }
                 
                 if self.Name.text! == ""{
                     MessageBox.ShowMessage(Text: "هیڤیە ناڤێ تەمام بنڤیسە")
+                    return
                 }
                 
                 if self.Tags.count == 0{
                     MessageBox.ShowMessage(Text: "هیڤیە تا ٥ تاگسان هەلبژێرە")
+                    return
                 }
                 
                 if self.Bio.text! == ""{
                     MessageBox.ShowMessage(Text: "هیڤیە بایۆ پربکە")
+                    return
                 }
                 
                 if self.Email.text! == ""{
                     MessageBox.ShowMessage(Text: "هیڤیە ئیمایلی بنڤیسە")
+                    return
                 }
                
             }

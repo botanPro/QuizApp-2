@@ -9,21 +9,20 @@ import UIKit
 
 class termsAndCondition: UIViewController {
 
+    @IBAction func Dimiss(_ sender: Any) {
+        self.dismiss(animated: true)
+    }
+    @IBOutlet weak var TermsAndConditionsText: UITextView!
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        QuizObjectApi.get_about { term_condition, about_project, about_us in
+            let htmlString = term_condition
+            if let attributedString = htmlString.htmlToAttributedString {
+                self.TermsAndConditionsText.attributedText = attributedString
+            }
+        }
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+    
 
 }

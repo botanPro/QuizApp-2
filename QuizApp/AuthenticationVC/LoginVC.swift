@@ -96,18 +96,17 @@ class LoginVC: UIViewController , UITextFieldDelegate, InternetStatusIndicable{
     }
     
     
-    
     @IBAction func Close(_ sender: Any) {
         
         self.dismiss(animated: true, completion: nil)
     }
     
-    
-    
+
     let loadingView = RSLoadingView(effectType: RSLoadingView.Effect.twins)
     
     var phone = ""
     @IBAction func Login(_ sender: Any) {
+        
         if CheckInternet.Connection(){
             if self.Phone.text?.trimmingCharacters(in: .whitespaces) != "" && self.Password.text?.trimmingCharacters(in: .whitespaces) != ""{
                 self.view.endEditing(true)
@@ -141,10 +140,12 @@ class LoginVC: UIViewController , UITextFieldDelegate, InternetStatusIndicable{
                 RSLoadingView.hide(from: self.view)
                 if self.Phone.text! == ""{
                     MessageBox.ShowMessage(Text: "هیڤیە ژمارا موبایلێ بنڤیسە")
+                    return
                 }
                 
                 if self.Password.text! == ""{
                     MessageBox.ShowMessage(Text: "هیڤیە وشا نهێنی بنڤیسە")
+                    return
                 }
             }
         }else{

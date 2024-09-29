@@ -9,6 +9,11 @@ import UIKit
 
 class SearchByTagsTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var ImageVieww: UIView!
+    @IBOutlet weak var Imagee: UIImageView!
+    @IBOutlet weak var ContainerVieww: UIView!
+    @IBOutlet weak var Name: UILabel!
+    @IBOutlet weak var Tags: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

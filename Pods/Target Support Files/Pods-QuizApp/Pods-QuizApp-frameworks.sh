@@ -41,7 +41,7 @@ install_framework()
 
   if [ -L "${source}" ]; then
     echo "Symlinked..."
-    source="$(readlink "${source}")"
+    source="$(readlink -f "${source}")"
   fi
 
   if [ -d "${source}/${BCSYMBOLMAP_DIR}" ]; then
@@ -198,7 +198,6 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/GTProgressBar/GTProgressBar.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/GravitySliderFlowLayout/GravitySliderFlowLayout.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/HMSegmentedControl/HMSegmentedControl.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/JKAlertView/JKAlertView.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/LIHImageSlider/LIHImageSlider.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/MBRadioCheckboxButton/MBRadioCheckboxButton.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/MHLoadingButton/MHLoadingButton.framework"
@@ -209,7 +208,6 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/MZTimerLabel/MZTimerLabel.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/MobilliumQRCodeReader/MobilliumQRCodeReader.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Navajo-Swift/Navajo_Swift.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/PDFReader/PDFReader.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/PSMeter/PSMeter.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/PhoneNumberKit/PhoneNumberKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/PullToDismissTransition/PullToDismissTransition.framework"
@@ -221,17 +219,14 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Slider2/Slider2.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SmoothPicker/SmoothPicker.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/Socket.IO-Client-Swift/SocketIO.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftMessages/SwiftMessages.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/TagTextField/TagTextField.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/TagsList/TagsList.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Toast-Swift/Toast_Swift.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/XP_PDFReader/XP_PDFReader.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/YoutubePlayer-in-WKWebView/YoutubePlayer_in_WKWebView.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/youtube-ios-player-helper/youtube_ios_player_helper.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/AEOTPTextField/AEOTPTextField.framework"
@@ -256,7 +251,6 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/GTProgressBar/GTProgressBar.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/GravitySliderFlowLayout/GravitySliderFlowLayout.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/HMSegmentedControl/HMSegmentedControl.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/JKAlertView/JKAlertView.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/LIHImageSlider/LIHImageSlider.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/MBRadioCheckboxButton/MBRadioCheckboxButton.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/MHLoadingButton/MHLoadingButton.framework"
@@ -267,7 +261,6 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/MZTimerLabel/MZTimerLabel.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/MobilliumQRCodeReader/MobilliumQRCodeReader.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Navajo-Swift/Navajo_Swift.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/PDFReader/PDFReader.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/PSMeter/PSMeter.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/PhoneNumberKit/PhoneNumberKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/PullToDismissTransition/PullToDismissTransition.framework"
@@ -279,17 +272,14 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Slider2/Slider2.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SmoothPicker/SmoothPicker.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/Socket.IO-Client-Swift/SocketIO.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftMessages/SwiftMessages.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/TagTextField/TagTextField.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/TagsList/TagsList.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Toast-Swift/Toast_Swift.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/XP_PDFReader/XP_PDFReader.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/YoutubePlayer-in-WKWebView/YoutubePlayer_in_WKWebView.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/youtube-ios-player-helper/youtube_ios_player_helper.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait

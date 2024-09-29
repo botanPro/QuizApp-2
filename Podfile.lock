@@ -26,7 +26,6 @@ PODS:
   - GravitySliderFlowLayout (1.0)
   - GTProgressBar (0.3.3)
   - HMSegmentedControl (1.5.6)
-  - JKAlertView (0.1.0)
   - LIHImageSlider (1.0.8)
   - lottie-ios (4.4.1)
   - MBRadioCheckboxButton (2.0)
@@ -41,7 +40,6 @@ PODS:
     - MXSegmentedControl (~> 1.1)
   - MZTimerLabel (0.5.4)
   - Navajo-Swift (2.1.0)
-  - PDFReader (2.5.1)
   - PhoneNumberKit (3.7.8):
     - PhoneNumberKit/PhoneNumberKitCore (= 3.7.8)
     - PhoneNumberKit/UIKit (= 3.7.8)
@@ -63,8 +61,6 @@ PODS:
   - SmoothPicker (1.1.3):
     - SnapKit (~> 4.2.0)
   - SnapKit (4.2.0)
-  - Socket.IO-Client-Swift (16.0.1):
-    - Starscream (~> 4.0)
   - Starscream (4.0.8)
   - SwiftMessages (10.0.0):
     - SwiftMessages/App (= 10.0.0)
@@ -73,9 +69,7 @@ PODS:
   - TagsList (0.1.0)
   - TagTextField (1.0.0)
   - Toast-Swift (5.0.1)
-  - XP_PDFReader (0.1.0)
-  - youtube-ios-player-helper (1.0.4)
-  - YoutubePlayer-in-WKWebView (0.2.5)
+  - YoutubePlayer-in-WKWebView (0.3.11)
 
 DEPENDENCIES:
   - AEOTPTextField
@@ -97,7 +91,6 @@ DEPENDENCIES:
   - FSPagerView
   - GravitySliderFlowLayout
   - HMSegmentedControl
-  - JKAlertView
   - LIHImageSlider
   - lottie-ios
   - MBRadioCheckboxButton
@@ -105,7 +98,6 @@ DEPENDENCIES:
   - MobilliumQRCodeReader
   - MXSegmentedPager
   - MZTimerLabel
-  - PDFReader
   - PhoneNumberKit (~> 3.3)
   - PSMeter
   - PullToDismissTransition
@@ -116,14 +108,12 @@ DEPENDENCIES:
   - SDWebImage
   - Slider2
   - SmoothPicker
-  - Socket.IO-Client-Swift (~> 16.0.0)
+  - Starscream (~> 4.0.6)
   - SwiftyJSON
   - TagsList
   - TagTextField
   - Toast-Swift (~> 5.0.1)
-  - XP_PDFReader
-  - youtube-ios-player-helper
-  - YoutubePlayer-in-WKWebView (~> 0.2.0)
+  - YoutubePlayer-in-WKWebView (~> 0.3.0)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -148,7 +138,6 @@ SPEC REPOS:
     - GravitySliderFlowLayout
     - GTProgressBar
     - HMSegmentedControl
-    - JKAlertView
     - LIHImageSlider
     - lottie-ios
     - MBRadioCheckboxButton
@@ -160,29 +149,24 @@ SPEC REPOS:
     - MXSegmentedPager
     - MZTimerLabel
     - Navajo-Swift
-    - PDFReader
     - PhoneNumberKit
     - PSMeter
     - PullToDismissTransition
     - PureLayout
+    - RadioButton
     - RSLoadingView
     - ScrollingPageControl
     - SDWebImage
     - Slider2
     - SmoothPicker
     - SnapKit
-    - Socket.IO-Client-Swift
     - Starscream
     - SwiftMessages
     - SwiftyJSON
     - TagsList
     - TagTextField
     - Toast-Swift
-    - XP_PDFReader
-    - youtube-ios-player-helper
     - YoutubePlayer-in-WKWebView
-  trunk:
-    - RadioButton
 
 EXTERNAL SOURCES:
   Drops:
@@ -217,7 +201,6 @@ SPEC CHECKSUMS:
   GravitySliderFlowLayout: bb9ae6a302b85821c9e0271c00533fae8091143b
   GTProgressBar: a480283ecb0ada50de16c71e634892826928f640
   HMSegmentedControl: 34c1f54d822d8308e7b24f5d901ec674dfa31352
-  JKAlertView: c23aff0ce35716167ba343c90b4a11d88a84ffb7
   LIHImageSlider: ddf90c3a07e6f571b0e57629177a49eaf5bf15a3
   lottie-ios: e047b1d2e6239b787cc5e9755b988869cf190494
   MBRadioCheckboxButton: 6e2a2cdc441e292e45b64c4e65eb8fc1fc05eef2
@@ -229,7 +212,6 @@ SPEC CHECKSUMS:
   MXSegmentedPager: 527ee76513c96e6607eebe473fe49b7ab4971616
   MZTimerLabel: cd9bfb9304540ef2a9e163384fca9c978f0dbf83
   Navajo-Swift: 57b93e73efbfbf452433efbff04402de56beff51
-  PDFReader: 2c4a845d0560f33221cf911516e3b700967680f6
   PhoneNumberKit: ff3827b9bd8a7ac9744963f241665859091c78ab
   PSMeter: f88995d922170cd37e04ccd19e6af78e800460a5
   PullToDismissTransition: f0cea5041c447545384450aad967a2b2bd5d5f30
@@ -241,17 +223,14 @@ SPEC CHECKSUMS:
   Slider2: cc2c685bbf9da6e0e919cbf1aa687374a1c86612
   SmoothPicker: a3f4b3c3a95fff73f20d526856aeff2c32696375
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
-  Socket.IO-Client-Swift: c116d6dc9fd6be9c259bacfe143f8725bce7d79e
   Starscream: 19b5533ddb925208db698f0ac508a100b884a1b9
   SwiftMessages: d3540f0f981dfbac25bd2ae9a662effa48f76f92
   SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
   TagsList: 45f0ded421b9d3af279c56f0609c5343b7010337
   TagTextField: 521d5374944f77b542d485598a192608f52ee6ff
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
-  XP_PDFReader: 1d21795645cf8ec42a62772bd467877265bd0897
-  youtube-ios-player-helper: e9b97535e816db3152179d84d999bc1807ecd689
-  YoutubePlayer-in-WKWebView: 4dad12b3ece938a6456fa4374df78942f88b485a
+  YoutubePlayer-in-WKWebView: 2c3aa1d5ad8dded9f95ef12033af5dd8e55864b7
 
-PODFILE CHECKSUM: 004cb2beb15b17c38e5d7dbe763c700b0f2b623e
+PODFILE CHECKSUM: 516fa22a811a67a88d0a5e8883fdcb20b1d70c5b
 
 COCOAPODS: 1.11.3

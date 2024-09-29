@@ -87,6 +87,17 @@ NSString static *const kWKYTPlayerSyndicationRegexPattern = @"^https://tpc.googl
     return [self loadWithPlayerParams:playerParams];
 }
 
+- (BOOL)loadWithVideoId:(NSString *)videoId playerVars:(NSDictionary *)playerVars templatePath:(NSString *)path {
+    if (!playerVars) {
+        playerVars = @{};
+    }
+    NSMutableDictionary *playerParams = [@{@"videoId" : videoId, @"playerVars" : playerVars} mutableCopy];
+    if (path) {
+        playerParams[@"templatePath"] = path;
+    }
+    return [self loadWithPlayerParams:[playerParams copy]];
+}
+
 - (BOOL)loadWithPlaylistId:(NSString *)playlistId playerVars:(NSDictionary *)playerVars {
     
     // Mutable copy because we may have been passed an immutable config dictionary.
@@ -345,12 +356,14 @@ NSString static *const kWKYTPlayerSyndicationRegexPattern = @"^https://tpc.googl
 
 - (void)getCurrentTime:(void (^ __nullable)(float currentTime, NSError * __nullable error))completionHandler
 {
-    [self stringFromEvaluatingJavaScript:@"player.getCurrentTime();" completionHandler:^(NSString * _Nullable response, NSError * _Nullable error) {
+    [self stringFromEvaluatingJavaScript:@"player.getCurrentTime();" completionHandler:^(id _Nullable response, NSError * _Nullable error) {
         if (completionHandler) {
             if (error) {
                 completionHandler(0, error);
-            } else {
+            } else if ([response respondsToSelector:@selector(floatValue)]) {
                 completionHandler([response floatValue], nil);
+            } else {
+                completionHandler(0, nil);
             }
         }
     }];
@@ -536,7 +549,7 @@ NSString static *const kWKYTPlayerSyndicationRegexPattern = @"^https://tpc.googl
                 NSMutableArray *levels = [[NSMutableArray alloc] init];
                 for (NSString *rawQualityValue in rawQualityValues) {
                     WKYTPlaybackQuality quality = [WKYTPlayerView playbackQualityForString:rawQualityValue];
-                    [levels addObject:[NSNumber numberWithInt:quality]];
+                    [levels addObject:[NSNumber numberWithInt:(int)quality]];
                 }
 
                 completionHandler(levels, nil);
@@ -573,6 +586,14 @@ NSString static *const kWKYTPlayerSyndicationRegexPattern = @"^https://tpc.googl
     if (self.initialLoadingView) {
         [self.initialLoadingView removeFromSuperview];
     }
+}
+
+- (WKWebView *)webView:(WKWebView *)webView createWebViewWithConfiguration:(WKWebViewConfiguration *)configuration forNavigationAction:(WKNavigationAction *)navigationAction windowFeatures:(WKWindowFeatures *)windowFeatures {
+    if (!navigationAction.targetFrame.isMainFrame) {
+        //  open link with target="_blank" in the same webView
+        [webView loadRequest:navigationAction.request];
+    }
+    return nil;
 }
 
 /**
@@ -684,7 +705,7 @@ NSString static *const kWKYTPlayerSyndicationRegexPattern = @"^https://tpc.googl
 /**
  * Private method to handle "navigation" to a callback URL of the format
  * ytplayer://action?data=someData
- * This is how the UIWebView communicates with the containing Objective-C code.
+ * This is how the WKWebView communicates with the containing Objective-C code.
  * Side effects of this method are that it calls methods on this class's delegate.
  *
  * @param url A URL of the format ytplayer://action?data=value.
@@ -759,13 +780,22 @@ NSString static *const kWKYTPlayerSyndicationRegexPattern = @"^https://tpc.googl
         if (self.initialLoadingView) {
             [self.initialLoadingView removeFromSuperview];
         }
+        
+        if ([self.delegate respondsToSelector:@selector(playerViewIframeAPIDidFailedToLoad:)]) {
+            [self.delegate playerViewIframeAPIDidFailedToLoad:self];
+        }
     }
 }
 
 - (BOOL)handleHttpNavigationToUrl:(NSURL *) url {
+    // https://github.com/youtube/youtube-ios-player-helper/issues/403
+    if ([[[url.path stringByReplacingOccurrencesOfString:@"/" withString:@""] lowercaseString] isEqualToString:@"ytscframe"]) {
+        return NO;
+    }
+    
     // Usually this means the user has clicked on the YouTube logo or an error message in the
     // player. Most URLs should open in the browser. The only http(s) URL that should open in this
-    // UIWebView is the URL for the embed, which is of the format:
+    // WKWebView is the URL for the embed, which is of the format:
     //     http(s)://www.youtube.com/embed/[VIDEO ID]?[PARAMETERS]
     NSError *error = NULL;
     NSRegularExpression *ytRegex =
@@ -817,7 +847,7 @@ NSString static *const kWKYTPlayerSyndicationRegexPattern = @"^https://tpc.googl
     if (ytMatch || adMatch || oauthMatch || staticProxyMatch || syndicationMatch) {
         return YES;
     } else {
-        [[UIApplication sharedApplication] openURL:url];
+        [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
         return NO;
     }
 }
@@ -867,7 +897,7 @@ NSString static *const kWKYTPlayerSyndicationRegexPattern = @"^https://tpc.googl
     
     // Remove the existing webView to reset any state
     [self.webView removeFromSuperview];
-    _webView = [self createNewWebView];
+    _webView = [self createNewWebViewWithPlayerParams:playerParams];
     [self addSubview:self.webView];
     
     self.webView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -903,9 +933,14 @@ NSString static *const kWKYTPlayerSyndicationRegexPattern = @"^https://tpc.googl
     [self addConstraints:constraints];
     
     NSError *error = nil;
-    NSString *path = [[NSBundle bundleForClass:[WKYTPlayerView class]] pathForResource:@"YTPlayerView-iframe-player"
-                                                                                ofType:@"html"
-                                                                           inDirectory:@"Assets"];
+    NSString *path = [additionalPlayerParams objectForKey:@"templatePath"];
+    
+    //in case path to the HTML template wan't provided from the outside
+    if (!path) {
+        path = [[NSBundle bundleForClass:[WKYTPlayerView class]] pathForResource:@"YTPlayerView-iframe-player"
+                                                                          ofType:@"html"
+                                                                     inDirectory:@"Assets"];
+    }
     
     // in case of using Swift and embedded frameworks, resources included not in main bundle,
     // but in framework bundle
@@ -941,6 +976,7 @@ NSString static *const kWKYTPlayerSyndicationRegexPattern = @"^https://tpc.googl
     NSString *embedHTML = [NSString stringWithFormat:embedHTMLTemplate, playerVarsJsonString];
     [self.webView loadHTMLString:embedHTML baseURL: self.originURL];
     self.webView.navigationDelegate = self;
+    self.webView.UIDelegate = self;
     
     if ([self.delegate respondsToSelector:@selector(playerViewPreferredInitialLoadingView:)]) {
         UIView *initialLoadingView = [self.delegate playerViewPreferredInitialLoadingView:self];
@@ -1020,8 +1056,8 @@ NSString static *const kWKYTPlayerSyndicationRegexPattern = @"^https://tpc.googl
  *
  * @param jsToExecute The JavaScript code in string format that we want to execute.
  */
-- (void)stringFromEvaluatingJavaScript:(NSString *)jsToExecute completionHandler:(void (^ __nullable)(NSString * __nullable response, NSError * __nullable error))completionHandler{
-    [self.webView evaluateJavaScript:jsToExecute completionHandler:^(NSString * _Nullable response, NSError * _Nullable error) {
+- (void)stringFromEvaluatingJavaScript:(NSString *)jsToExecute completionHandler:(void (^ __nullable)(id __nullable response, NSError * __nullable error))completionHandler{
+    [self.webView evaluateJavaScript:jsToExecute completionHandler:^(id _Nullable response, NSError * _Nullable error) {
         if (completionHandler) {
             completionHandler(response, error);
         }
@@ -1044,10 +1080,12 @@ NSString static *const kWKYTPlayerSyndicationRegexPattern = @"^https://tpc.googl
     _webView = webView;
 }
 
-- (WKWebView *)createNewWebView {
-    
-    // WKWebView equivalent for UIWebView's scalesPageToFit
-    // http://stackoverflow.com/questions/26295277/wkwebview-equivalent-for-uiwebviews-scalespagetofit
+- (WKWebView *)createNewWebViewWithPlayerParams:(NSDictionary *)additionalPlayerParams {
+
+    NSMutableDictionary *playerVars = [additionalPlayerParams objectForKey:@"playerVars"];
+    NSNumber* playsinline = [playerVars objectForKey:@"playsinline"] ? [playerVars objectForKey:@"playsinline"] : @0;
+    // WKWebView equivalent for UI Web View's scalesPageToFit
+    // 
     NSString *jScript = @"var meta = document.createElement('meta'); meta.setAttribute('name', 'viewport'); meta.setAttribute('content', 'width=device-width'); document.getElementsByTagName('head')[0].appendChild(meta);";
     
     WKUserScript *wkUScript = [[WKUserScript alloc] initWithSource:jScript injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
@@ -1059,7 +1097,11 @@ NSString static *const kWKYTPlayerSyndicationRegexPattern = @"^https://tpc.googl
     configuration.userContentController = wkUController;
     
     configuration.allowsInlineMediaPlayback = YES;
-    configuration.mediaPlaybackRequiresUserAction = NO;
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad && [playsinline isEqualToNumber:@0]) {
+        configuration.allowsInlineMediaPlayback = NO; /* Device is iPad */
+    }
+
+    configuration.mediaTypesRequiringUserActionForPlayback = NO;
     
     WKWebView *webView = [[WKWebView alloc] initWithFrame:self.bounds configuration:configuration];
     webView.scrollView.scrollEnabled = NO;
@@ -1084,9 +1126,16 @@ NSString static *const kWKYTPlayerSyndicationRegexPattern = @"^https://tpc.googl
     static NSBundle* frameworkBundle = nil;
     static dispatch_once_t predicate;
     dispatch_once(&predicate, ^{
+        NSString* bundleName = @"WKYTPlayerView.bundle";
         NSString* mainBundlePath = [[NSBundle bundleForClass:[WKYTPlayerView class]] resourcePath];
-        NSString* frameworkBundlePath = [mainBundlePath stringByAppendingPathComponent:@"WKYTPlayerView.bundle"];
+        #ifdef SPM_BUNDLE
+        NSString* spmBundlePath = [NSString stringWithFormat:@"YoutubePlayer-in-WKWebView_YoutubePlayer-in-WKWebView.bundle/%@", bundleName];
+        NSString* frameworkBundlePath = [mainBundlePath stringByAppendingPathComponent:spmBundlePath];
         frameworkBundle = [NSBundle bundleWithPath:frameworkBundlePath];
+        #else
+        NSString* frameworkBundlePath = [mainBundlePath stringByAppendingPathComponent:bundleName];
+        frameworkBundle = [NSBundle bundleWithPath:frameworkBundlePath];
+        #endif
     });
     return frameworkBundle;
 }

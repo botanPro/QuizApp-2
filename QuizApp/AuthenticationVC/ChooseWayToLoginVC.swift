@@ -18,6 +18,13 @@ class ChooseWayToLoginVC: UIViewController {
         ContainerView.layer.shadowRadius = 20
     }
     
-
+    @IBAction func Login(_ sender: Any) {
+        if UserDefaults.standard.string(forKey: "login") == "true"{
+            self.performSegue(withIdentifier: "HomeVc", sender: nil)
+        }else{
+            self.performSegue(withIdentifier: "GoToLogin", sender: nil)
+        }
+    }
+    
 
 }

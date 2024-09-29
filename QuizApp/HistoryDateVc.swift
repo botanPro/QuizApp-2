@@ -28,7 +28,7 @@ class HistoryDateVc: UIViewController {
     @IBOutlet weak var FirstThreeWinnerView: UIView!
     
     
-    var TodayArray : [HistoryObject] = []
+    var TodayArray : [Winner] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         self.SecoundLableView.layer.cornerRadius = self.SecoundLableView.bounds.width / 2
@@ -54,10 +54,7 @@ class HistoryDateVc: UIViewController {
         TableView.register(UINib(nibName: "HistoryTableViewCell", bundle: nil), forCellReuseIdentifier: "cell")
         
         
-        TodayArray.append(HistoryObject(id: "1", title: "Ali Ahmad", date: "", levle: "101"))
-        TodayArray.append(HistoryObject(id: "2", title: "Kareem Kazm", date: "", levle: "203"))
-        TodayArray.append(HistoryObject(id: "3", title: "John Cina", date: "", levle: "58"))
-        TodayArray.append(HistoryObject(id: "4", title: "Baran Mohammad", date: "", levle: "95"))
+    
         self.TableView.reloadData()
         // Do any additional setup after loading the view.
     }
@@ -86,9 +83,9 @@ extension HistoryDateVc : UITableViewDelegate , UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             let cell  = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! HistoryTableViewCell
 
-            cell.Number.text = self.TodayArray[indexPath.row].id
-            cell.Titlee.text = self.TodayArray[indexPath.row].title
-            cell.Date.text = "Lv\(self.TodayArray[indexPath.row].level)"
+//            cell.Number.text = self.TodayArray[indexPath.row].id
+//            cell.Titlee.text = self.TodayArray[indexPath.row].title
+//            cell.Date.text = "Lv\(self.TodayArray[indexPath.row].level)"
         
         
 

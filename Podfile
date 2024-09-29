@@ -8,6 +8,7 @@
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     target.build_configurations.each do |config|
+      config.build_settings['CODE_SIGNING_ALLOWED'] = 'NO'
       xcconfig_path = config.base_configuration_reference.real_path
       xcconfig = File.read(xcconfig_path)
       config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '14.0'
@@ -39,9 +40,9 @@ target 'QuizApp' do
   pod 'MBRadioCheckboxButton'
   pod "CollieGallery"
   pod 'Cosmos'
-  pod 'XP_PDFReader'
+
   pod "EPSignature"
-  pod 'PDFReader'
+
 
     pod 'Alamofire'
     pod 'SwiftyJSON'
@@ -71,7 +72,6 @@ target 'QuizApp' do
   pod 'CustomLoader'
   pod 'LIHImageSlider'
   pod "CollieGallery"
-  pod 'youtube-ios-player-helper'
   
   pod 'AlertToast'
   pod 'EFInternetIndicator'
@@ -86,11 +86,12 @@ target 'QuizApp' do
  
  pod "DDHTimerControl"
  
- pod 'YoutubePlayer-in-WKWebView', '~> 0.2.0'
+ pod "YoutubePlayer-in-WKWebView", "~> 0.3.0"
+
  
  pod 'lottie-ios'
  
- pod 'JKAlertView'
+
 
  pod 'FCAlertView'
  
@@ -100,7 +101,9 @@ target 'QuizApp' do
  
  pod 'DropDown'
  
- pod 'Socket.IO-Client-Swift', '~> 16.0.0'
+# pod 'Socket.IO-Client-Swift', '~> 16.0.0'
+ 
+ pod 'Starscream', '~> 4.0.6'
  
 end
 
